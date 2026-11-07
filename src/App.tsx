@@ -12,7 +12,7 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [text, setText] = useState('');
   const [uploading, setUploading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
+
   const [dragOver, setDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -76,7 +76,6 @@ export default function App() {
       setError(err instanceof Error ? err.message : 'Upload failed. Please try again.');
     } finally {
       setUploading(false);
-      setUploadProgress(0);
       if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
@@ -155,7 +154,7 @@ export default function App() {
               <CloudUpload className="h-5 w-5" />
             </div>
             <div>
-              <h1 className="text-lg font-bold tracking-tight text-slate-900">Public Dropzone</h1>
+              <h1 className="text-lg font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-cyan-600">Public Dropzone</h1>
               <p className="text-xs text-slate-500">No accounts. No login. Just drop it.</p>
             </div>
           </div>
@@ -234,12 +233,12 @@ export default function App() {
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="Type or paste anything — code, notes, a secret message..."
-              className="min-h-[120px] flex-1 resize-none rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm text-slate-800 placeholder-slate-400 transition focus:border-sky-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/20"
+              className="min-h-[120px] flex-1 resize-none rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm text-slate-800 placeholder-slate-400 transition focus:border-sky-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/40"
             />
             <button
               onClick={handleTextSubmit}
               disabled={!text.trim() || uploading}
-              className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-40"
+              className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-600 hover:from-sky-600 hover:to-cyan-700 shadow-md shadow-sky-500/20 hover:shadow-lg hover:shadow-sky-500/40 px-4 py-2.5 text-sm font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-40"
             >
               {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
               Drop text
@@ -323,7 +322,7 @@ function DropCard({
   const isFile = drop.type === 'file';
 
   return (
-    <div className="group rounded-2xl border border-slate-200 bg-white p-4 transition-all duration-200 hover:border-slate-300 hover:shadow-md sm:p-5">
+    <div className="group rounded-2xl border border-slate-200 bg-white p-4 transition-all duration-200 hover:border-slate-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200/50 sm:p-5">
       <div className="flex items-start gap-4">
         {/* Icon */}
         <div className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl ${
